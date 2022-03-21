@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct PokemonListView: View {
+    @State var searchText = ""
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            List {
+
+            }
+            .navigationTitle("Pokemon List")
+        }
+        .searchable(text: $searchText) {
+        }
     }
 }
 
