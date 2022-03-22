@@ -35,22 +35,21 @@ struct PokemonCell: View {
                 .font(.body)
                 .fontWeight(.semibold)
             Text("#" + String(format: "%03d", pokemon.id))
-                
         }
     }
     
     private var spriteFront: some View {
         AsyncImage(url: pokemon.frontDefaultSprite) { image in image.resizable()
         } placeholder: {
-            Color.red
+            ProgressView()
         }
         .frame(width: 100, height: 100)
         .padding(.leading, -40)
     }
     
     private var types: some View {
-        ForEach(pokemon.types) { type in
-            Image("\(type)Icon")
+        ForEach(pokemon.types, id: \.self.name) { type in
+            Image("\(type.name)Icon")
                 .resizable()
                 .frame(width: 40, height: 40)
         }
@@ -59,7 +58,7 @@ struct PokemonCell: View {
 
 struct PokemonCell_Previews: PreviewProvider {
     
-    static let pokemon = Pokemon(id: 1, name: "bulbasaur", frontDefaultSprite: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"), frontShinySprite: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png"), generation: "Generation I", types: ["Grass", "Poison"])
+    static let pokemon = Pokemon(id: 1, name: "bulbasaur", frontDefaultSprite: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"), frontShinySprite: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png"), generation: "Generation I", types: [TypePokemon(name: "Grass"), TypePokemon(name: "Poison")])
     
     static var previews: some View {
         PokemonCell(pokemon: pokemon)

@@ -2,16 +2,14 @@ query GetAllPokemons {
   allPokemon {
     id
     name
+    color
+    generation
     sprites {
       front_default
       front_shiny
     }
     types {
-      name
-    }
-    generation
-    evolves_to {
-      id
+        name
     }
   }
 }
