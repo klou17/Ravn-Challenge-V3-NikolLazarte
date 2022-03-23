@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct PokemonListView: View {
-    @State var searchText = ""
+    @ObservedObject var viewModel = PokemonListViewModel()
+    
     var body: some View {
         NavigationView {
             List {
-
+                ForEach(viewModel.pokemons, id:\.id) { pokemon in
+                    PokemonCell(pokemon: pokemon)
+                        .listRowSeparator(.hidden)
+                }
             }
             .navigationTitle("Pokemon List")
-        }
-        .searchable(text: $searchText) {
         }
     }
 }

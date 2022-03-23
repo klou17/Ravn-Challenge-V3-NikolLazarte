@@ -9,7 +9,8 @@ import Foundation
 
 struct Constants {
     enum Network {
-        static let pokemonURL = "https://dex-server.herokuapp.com/"
+        static let graphqlURL = "https://dex-server.herokuapp.com/"
+        static let pokeApiURL = "https://pokeapi.co/api/v2"
     }
     
     enum ListCell {

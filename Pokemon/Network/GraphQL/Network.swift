@@ -7,10 +7,30 @@
 
 import Foundation
 import Apollo
+import Combine
 
-class Network {
+final class Network {
     static let shared = Network()
-    private init() {}
+    private(set) lazy var client = ApolloClient(url: URL(string: Constants.Network.graphqlURL)!)
+    
+    func fetch<T: GraphQLQuery>(_ query: T) -> AnyPublisher<T.Data, NetworkError> {
+        Future { [client] promise in
+            client.fetch(query: query) { result in
+                switch result {
+                case .success(let graphQLResult):
+                    if let data = graphQLResult.data {
+                        promise(.success(data))
+                    } else if let errors = graphQLResult.errors {
+                        let message = errors.map(\.localizedDescription).joined(separator: "\n")
+                        promise(.failure(NetworkError(message: message)))
+                    }
 
-    lazy var client = ApolloClient(url: URL(string: Constants.Network.pokemonURL)!)
+                case .failure(let error):
+                    promise(.failure(NetworkError(message: error.localizedDescription)))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
 }
+
