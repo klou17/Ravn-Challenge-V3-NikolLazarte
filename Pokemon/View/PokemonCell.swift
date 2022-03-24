@@ -15,13 +15,15 @@ struct PokemonCell: View {
             cellBackground
             
             HStack(spacing: .zero) {
-                spriteFront
+                spriteFrontImage
                 nameAndID
+                Spacer()
                 types
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 8)
         }
-        .padding(.leading, 30)
+        .padding(.leading, 48)
+        .padding(.trailing, 24)
     }
     
     private var cellBackground: some View {
@@ -30,30 +32,31 @@ struct PokemonCell: View {
     }
     
     private var nameAndID: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text(pokemon.namePokemon)
                 .font(.body)
                 .fontWeight(.semibold)
             Text("#" + pokemon.idPokemon)
         }
-        .frame(alignment: .trailing)
     }
     
-    private var spriteFront: some View {
+    private var spriteFrontImage: some View {
         AsyncImage(url: pokemon.spriteImage) { image in
             image.resizable()
         } placeholder: {
             ProgressView()
         }
-        .frame(width: 100, height: 100)
-        .padding(.leading, -80)
+        .frame(width: 80, height: 80)
+        .padding(.leading, -40)
+        .padding(.trailing, 10)
     }
     
     private var types: some View {
         ForEach(pokemon.typesPokemon) { type in
             Image("\(type)Icon")
                 .resizable()
-                .frame(width: 40, height: 40)
+                .frame(width: 50, height: 50)
+                .padding(.trailing, -5)
         }
     }
 }

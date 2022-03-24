@@ -25,4 +25,7 @@ extension Pokemon {
         URL(string: sprites?.frontDefault ?? "")
     }
     
+    var generationPokemons: String {
+        generation ?? ""
+    }
 }

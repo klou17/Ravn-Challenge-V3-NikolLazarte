@@ -12,14 +12,31 @@ struct PokemonListView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(viewModel.pokemons, id:\.id) { pokemon in
-                    PokemonCell(pokemon: pokemon)
-                        .listRowSeparator(.hidden)
-                }
+            ZStack {
+                listPokemons
+                .navigationTitle("Pokemon List")
             }
-            .navigationTitle("Pokemon List")
         }
+        .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .onAppear {
+            UINavigationBar.appearance().backgroundColor = UIColor(.cellBackground)
+        }
+    }
+    
+    private var listPokemons: some View {
+        ScrollView {
+            Divider()
+                .background(.ultraThinMaterial)
+            ForEach(viewModel.pokemons, id:\.id) { pokemon in
+                NavigationLink {
+                    PokemonDetailView()
+                } label: {
+                    PokemonCell(pokemon: pokemon)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .background(.white)
     }
 }
 

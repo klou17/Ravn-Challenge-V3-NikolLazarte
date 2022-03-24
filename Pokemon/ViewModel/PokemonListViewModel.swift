@@ -13,6 +13,15 @@ class PokemonListViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var errorLoadData = false
     
+    var searchResults: [Pokemon] {
+        if searchText.isEmpty {
+            print("pokemons: \(pokemons)")
+            return pokemons
+        } else {
+            return pokemons.filter { return $0.namePokemon.starts(with: searchText)}
+        }
+    }
+    
     private var service: PokemonListService
     private var cancellables = Set<AnyCancellable>()
     
@@ -21,10 +30,11 @@ class PokemonListViewModel: ObservableObject {
         subscriptions()
     }
     
-    private func subscriptions() {
+    func subscriptions() {
         service.fetchPokemons()
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: {_ in }, receiveValue: { [weak self] in
+//                self?.pokemons.append(contentsOf: $0)
                 self?.pokemons = $0
             })
             .store(in: &cancellables)
