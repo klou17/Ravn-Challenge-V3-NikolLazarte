@@ -20,7 +20,7 @@ struct PokemonListView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Text("Title")
+                        Text("Pokemon List")
                             .font(.largeTitle.bold())
                     }
                 }
@@ -40,7 +40,9 @@ struct PokemonListView: View {
         ScrollView {
             ForEach(viewModel.pokemons, id:\.id) { pokemon in
                 NavigationLink {
-                    PokemonDetailView()
+                    PokemonDetailView(viewModel: PokemonDetailViewModel(
+                        pokemon: pokemon
+                    ))
                 } label: {
                     PokemonCell(pokemon: pokemon)
                 }

@@ -7,6 +7,11 @@
 
 import Foundation
 
-class PokemonDetailViewModel {
+class PokemonDetailViewModel: ObservableObject {
+    @Published var pokemon: Pokemon
+    @Published var activeSprite = 0
     
+    init(pokemon: Pokemon) {
+        self.pokemon = pokemon
+    }
 }

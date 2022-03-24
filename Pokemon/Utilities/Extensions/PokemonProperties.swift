@@ -18,14 +18,27 @@ extension Pokemon {
     }
     
     var idPokemon: String {
-        return id?.formatted() ?? ""
+        return "#" + String(format: "%03d", idInt)
     }
     
-    var spriteImage: URL? {
+    var spriteFrontDefaultImage: URL? {
         URL(string: sprites?.frontDefault ?? "")
+    }
+    
+    var spriteFrontShinyImage: URL? {
+        URL(string: sprites?.frontShiny ?? "")
     }
     
     var generationPokemons: String {
         generation ?? ""
     }
+    
+    var colorPokemon: String {
+        color ?? ""
+    }
+    
+    private var idInt: Int {
+        return Int(id ?? 0)
+    }
+    
 }

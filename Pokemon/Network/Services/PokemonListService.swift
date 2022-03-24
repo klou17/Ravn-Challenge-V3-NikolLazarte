@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol PokemonListServiceType {
-    func fetchPokemons() -> AnyPublisher<[Pokemon], NetworkError>
+    func fetchPokemons() -> AnyPublisher<[Pokemon], Error>
     
 }
 
@@ -21,10 +21,11 @@ struct PokemonListService: PokemonListServiceType {
         self.network = network
     }
     
-    func fetchPokemons() -> AnyPublisher<[Pokemon], NetworkError> {
+    func fetchPokemons() -> AnyPublisher<[Pokemon], Error> {
         network.fetch(GetAllPokemonsQuery())
             .compactMap { $0.allPokemon?.compactMap{ $0 } }
-            .mapError { NetworkError(message: $0.localizedDescription) }
+//            .mapError { NetworkError(message: $0.localizedDescription) }
+            .mapError  { NetError.failedToLoadData(error: $0.localizedDescription) }
             .eraseToAnyPublisher()
     }
 }

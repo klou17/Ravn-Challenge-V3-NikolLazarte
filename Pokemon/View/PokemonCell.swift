@@ -36,12 +36,12 @@ struct PokemonCell: View {
             Text(pokemon.namePokemon)
                 .font(.body)
                 .fontWeight(.semibold)
-            Text("#" + pokemon.idPokemon)
+            Text(pokemon.idPokemon)
         }
     }
     
     private var spriteFrontImage: some View {
-        AsyncImage(url: pokemon.spriteImage) { image in
+        AsyncImage(url: pokemon.spriteFrontDefaultImage) { image in
             image.resizable()
         } placeholder: {
             ProgressView()

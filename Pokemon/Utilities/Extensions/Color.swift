@@ -11,16 +11,17 @@ import SwiftUI
 extension Color {
     // ListView
     static var cellBackground = Color("cellBackground")
+    static var systemBackground = Color("systemBackground")
     
     // PokemonColor
-    static let pBlack = Color("pBlack")
-    static var pBlue = Color("pBlue")
-    static var pBrown = Color("pBrown")
-    static var pGray = Color("pGray")
-    static var pGreen = Color("pGreen")
-    static var pPink = Color("pPink")
-    static var pPurple = Color("pPurple")
-    static var pRed = Color("pRed")
-    static var pWhite = Color("pWhite")
-    static var pYellow = Color("pYellow")
+    static let pBlack = Color("black")
+    static var pBlue = Color("blue")
+    static var pBrown = Color("brown")
+    static var pGray = Color("gray")
+    static var pGreen = Color("green")
+    static var pPink = Color("pink")
+    static var pPurple = Color("purple")
+    static var pRed = Color("red")
+    static var pWhite = Color("white")
+    static var pYellow = Color("yellow")
 }
