@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-typealias PokemonType = GetAllPokemonsQuery.Data.AllPokemon.Type
+
 struct PokemonDetailView: View {
     @StateObject var viewModel: PokemonDetailViewModel
     
@@ -15,36 +15,25 @@ struct PokemonDetailView: View {
             Color(viewModel.pokemon.colorPokemon)
             
             VStack(spacing: .zero) {
-                AsyncImage(url: viewModel.pokemon.spriteFrontDefaultImage) { image in
-                    image.resizable()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 200, height: 200)
-                Picker("Active Sprite", selection: $viewModel.activeSprite) {
-                    Text("Default Sprite").tag(0)
-                    Text("Shiny Sprite").tag(1)
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal, 16)
+                imagePokemon
+                pickerSprites
                 
                 ZStack {
-                    Color.systemBackground
-                        .cornerRadius(40, corners: [.topLeft, .topRight])
-                    VStack {
-                        Text(viewModel.pokemon.idPokemon + " " + viewModel.pokemon.namePokemon)
-                            .font(.title)
-                        types
-                        
-                        Text(viewModel.pokemon.generationPokemons)
-                            .font(.body)
-                            .padding(.bottom, 8)
-                    }
+                    backgroundBody
+                    detailPokemon
                 }
-                .padding(.top, 10)
+                .padding(.top, Constants.DetailView.paddingTopBody)
             }
         }
         .navigationTitle("Pokemon Info")
+    }
+    
+    private var imagePokemon: some View {
+        AsyncImageCustom (
+            url: viewModel.getSprite(pokemon: viewModel.pokemon),
+            width: Constants.DetailView.sizeSpriteFront,
+            height: Constants.DetailView.sizeSpriteFront
+        )
     }
     
     private var types: some View {
@@ -52,8 +41,71 @@ struct PokemonDetailView: View {
             ForEach(viewModel.pokemon.typesPokemon) { type in
                 Image("\(type)")
                     .resizable()
-                    .frame(width: 100, height: 50)
+                    .frame(width: Constants.DetailView.widthType, height: Constants.DetailView.heightType)
             }
         }
+    }
+    
+    private var pickerSprites: some View {
+        Picker("Active Sprite", selection: $viewModel.activeSprite) {
+            Text("Default Sprite").tag(0)
+            Text("Shiny Sprite").tag(1)
+        }
+        .pickerStyle(.segmented)
+        .padding(.horizontal, Constants.DetailView.paddingPicker)
+    }
+    
+    private var backgroundBody: some View {
+        Color.systemBackground
+            .cornerRadius(Constants.DetailView.cornerRadiusBgBody, corners: [.topLeft, .topRight])
+    }
+    
+    private var detailPokemon: some View {
+        VStack {
+            Text(viewModel.pokemon.idPokemon + " " + viewModel.pokemon.namePokemon)
+                .font(.title)
+                .padding(.top, Constants.DetailView.paddingNameId)
+            
+            types
+            
+            Text(viewModel.pokemon.generationPokemons)
+                .font(.body)
+                .padding(.bottom, Constants.DetailView.paddingGeneration)
+            
+            DividerCustom()
+            
+            evolutions
+        }
+    }
+    
+    private var evolutions: some View {
+        ScrollView {
+            Text("Evolutions")
+                .font(.title3)
+            ZStack {
+                evolutionItem(for: viewModel.pokemon)
+            }
+        }
+    }
+    
+    private func evolutionItem(for pokemon: Pokemon) -> some View {
+        VStack {
+            AsyncImage(url: pokemon.spriteFrontDefaultImage)
+                .frame(width: 80, height: 80)
+                .overlay {
+                    Circle().background(.gray)
+                }
+            Text(pokemon.namePokemon)
+                .fontWeight(.semibold)
+
+            Text(pokemon.idPokemon)
+        }
+    }
+}
+
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        PokemonDetailView(viewModel: .init(pokemon: Pokemon(id: 3, name: "bulbasur", color: "green", generation: "Generation 1", sprites: Pokemon.Sprite.init(frontDefault: "", frontShiny: ""))))
     }
 }

@@ -15,7 +15,6 @@ protocol PokemonDetailServiceType {
 
 
 struct PokemonDetailService: PokemonDetailServiceType {
-    
     private let session: URLSession
     
     init(session: URLSession = .shared){
@@ -24,15 +23,13 @@ struct PokemonDetailService: PokemonDetailServiceType {
     
     func fetchPokemonDetail(id: Int) -> AnyPublisher<PokemonDetailResponse, Error> {
         guard let url = URL(string: Constants.Network.pokeApiURL + "\(id)/") else {
-            return Fail(error: NetError.invalidURL)
+            return Fail(error: NetworkError.invalidURL)
                 .eraseToAnyPublisher()
         }
 
         return session.dataTaskPublisher(for: url)
             .map { $0.data }
-            .mapError { error -> Error in
-                return NetError.failedToLoadData(error: error.localizedDescription)
-            }
+            .mapError { _ in return NetworkError.failLoadData }
             .decode(type: PokemonDetailResponse.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }

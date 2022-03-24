@@ -20,10 +20,10 @@ struct PokemonCell: View {
                 Spacer()
                 types
             }
-            .padding(.horizontal, 8)
+            .padding(.horizontal, Constants.ListCell.paddingInfoCell)
         }
-        .padding(.leading, 48)
-        .padding(.trailing, 24)
+        .padding(.leading, Constants.ListCell.paddingLeadingCell)
+        .padding(.trailing, Constants.ListCell.paddingTrailingCell)
     }
     
     private var cellBackground: some View {
@@ -41,22 +41,21 @@ struct PokemonCell: View {
     }
     
     private var spriteFrontImage: some View {
-        AsyncImage(url: pokemon.spriteFrontDefaultImage) { image in
-            image.resizable()
-        } placeholder: {
-            ProgressView()
-        }
-        .frame(width: 80, height: 80)
-        .padding(.leading, -40)
-        .padding(.trailing, 10)
+        AsyncImageCustom (
+            url: pokemon.spriteFrontDefaultImage,
+            width: Constants.ListCell.sizeSprite,
+            height: Constants.ListCell.sizeSprite
+        )
+            .padding(.leading, Constants.ListCell.paddingLeadingSprite)
+            .padding(.trailing, Constants.ListCell.paddingTrailingSprite)
     }
     
     private var types: some View {
         ForEach(pokemon.typesPokemon) { type in
             Image("\(type)Icon")
                 .resizable()
-                .frame(width: 50, height: 50)
-                .padding(.trailing, -5)
+                .frame(width: Constants.ListCell.sizeType, height: Constants.ListCell.sizeType)
+                .padding(.trailing, Constants.ListCell.paddingTrailingType)
         }
     }
 }

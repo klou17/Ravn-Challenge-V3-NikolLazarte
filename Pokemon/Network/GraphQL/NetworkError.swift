@@ -7,23 +7,26 @@
 
 import Foundation
 
-struct NetworkError: Error {
-    let message: String
-}
-
-enum NetError: Error {
+enum NetworkError: Error {
     case invalidURL
-    case failedToLoadData(error: String)
-    case conexionFail(error: String)
-    
-    var message: String {
+    case failLoadData
+    case failConexion
+
+    var messageErrorTitle: String {
         switch self {
-        case .invalidURL:
-            return "Invalid URL"
-        case .failedToLoadData(let error):
-            return error
-        case .conexionFail(let error):
-            return error
+        case .invalidURL, .failLoadData:
+            return Constants.ErrorText.wasError
+        case .failConexion:
+            return Constants.ErrorText.connectivityIssue
+        }
+    }
+    
+    var messageErrorBody: String {
+        switch self {
+        case .invalidURL, .failLoadData:
+            return Constants.ErrorText.failLoadData
+        case .failConexion:
+            return Constants.ErrorText.problemToConnect
         }
     }
 }

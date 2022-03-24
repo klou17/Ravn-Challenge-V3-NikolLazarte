@@ -18,17 +18,14 @@ final class Network {
             client.fetch(query: query) { result in
                 switch result {
                 case .success(let graphQLResult):
-                    if let data = graphQLResult.data {
-                        promise(.success(data))
-                    } else if let errors = graphQLResult.errors {
-                        let message = errors.map(\.localizedDescription).joined(separator: "\n")
-//                        promise(.failure(NetworkError(message: message)))
-                        promise(.failure(NetError.failedToLoadData(error: message)))
+                    guard let data = graphQLResult.data else {
+                        promise(.failure(NetworkError.failLoadData))
+                        return
                     }
+                    promise(.success(data))
 
                 case .failure(let error):
-//                    promise(.failure(NetworkError(message: error.localizedDescription)))
-                    promise(.failure(NetError.conexionFail(error: error.localizedDescription)))
+                    promise(.failure(error))
                 }
             }
         }

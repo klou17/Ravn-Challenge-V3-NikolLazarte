@@ -8,11 +8,9 @@
 import Foundation
 
 struct PokemonDetailResponse: Codable {
-    let color: Color
-    
-    
-    struct Color: Codable, Equatable {
+    let flavours: Flavour
+        
+    struct Flavour: Codable {
         let name: String
     }
-
 }

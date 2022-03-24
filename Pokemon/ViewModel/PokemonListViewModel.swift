@@ -7,11 +7,13 @@
 
 import Foundation
 import Combine
+import Apollo
 
 class PokemonListViewModel: ObservableObject {
     @Published var pokemons: [Pokemon] = []
     @Published var searchText = ""
     @Published var errorLoadData = false
+    @Published var errorMessage: String?
     
     var searchResults: [Pokemon] {
         if searchText.isEmpty {
@@ -31,10 +33,20 @@ class PokemonListViewModel: ObservableObject {
     }
     
     func subscriptions() {
+        errorLoadData = true
         service.fetchPokemons()
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: {_ in }, receiveValue: { [weak self] in
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    self?.errorMessage = nil
+                case .failure(let error):
+                    self?.errorMessage = error.localizedDescription
+                }
+                
+            }, receiveValue: { [weak self] in
 //                self?.pokemons.append(contentsOf: $0)
+                self?.errorLoadData = false
                 self?.pokemons = $0
             })
             .store(in: &cancellables)

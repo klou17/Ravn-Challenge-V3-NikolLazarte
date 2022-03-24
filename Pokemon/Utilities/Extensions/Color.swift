@@ -13,6 +13,9 @@ extension Color {
     static var cellBackground = Color("cellBackground")
     static var systemBackground = Color("systemBackground")
     
+    // DetailView
+    static var divider = Color("divider")
+    
     // PokemonColor
     static let pBlack = Color("black")
     static var pBlue = Color("blue")

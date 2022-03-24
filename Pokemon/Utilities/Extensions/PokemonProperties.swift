@@ -13,6 +13,11 @@ extension Pokemon {
         return types.compactMap { $0?.name }
     }
     
+//    var evolutionPokemon: [Int] {
+//        guard let evolution = evolvesTo else { return [] }
+//        return evolution.compactMap { $0?.id}
+//    }
+    
     var namePokemon: String {
         name?.capitalized ?? ""
     }
@@ -37,8 +42,7 @@ extension Pokemon {
         color ?? ""
     }
     
-    private var idInt: Int {
+    var idInt: Int {
         return Int(id ?? 0)
     }
-    
 }

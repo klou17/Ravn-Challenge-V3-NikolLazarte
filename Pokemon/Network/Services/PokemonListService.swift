@@ -24,8 +24,7 @@ struct PokemonListService: PokemonListServiceType {
     func fetchPokemons() -> AnyPublisher<[Pokemon], Error> {
         network.fetch(GetAllPokemonsQuery())
             .compactMap { $0.allPokemon?.compactMap{ $0 } }
-//            .mapError { NetworkError(message: $0.localizedDescription) }
-            .mapError  { NetError.failedToLoadData(error: $0.localizedDescription) }
+            .mapError { _ in NetworkError.failLoadData}
             .eraseToAnyPublisher()
     }
 }

@@ -11,5 +11,8 @@ query GetAllPokemons {
     types {
         name
     }
+    evolves_to {
+      id
+    }
   }
 }

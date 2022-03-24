@@ -12,21 +12,32 @@ struct PokemonListView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: .zero) {
-                Divider()
-                    .background(.ultraThinMaterial)
-                listPokemons
-                .navigationTitle("")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Text("Pokemon List")
-                            .font(.largeTitle.bold())
+            ZStack {
+                if viewModel.errorLoadData {
+                    ProgressView()
+                }
+                VStack(spacing: .zero) {
+                    DividerCustom()
+                    listPokemons
+                    .navigationTitle("")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Text("Pokemon List")
+                                .font(.largeTitle.bold())
+                        }
                     }
                 }
             }
         }
         .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .alert(item: $viewModel.errorMessage) { _ in
+            Alert(
+                title: Text(NetworkError.failLoadData.messageErrorTitle),
+                message: Text(NetworkError.failLoadData.messageErrorBody),
+                dismissButton: .default(Text("OK"))
+            )
+        }
         .onAppear {
             let coloredAppearance = UINavigationBarAppearance()
             coloredAppearance.configureWithOpaqueBackground()
@@ -52,8 +63,3 @@ struct PokemonListView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        PokemonListView()
-    }
-}
