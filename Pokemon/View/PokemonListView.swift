@@ -12,21 +12,32 @@ struct PokemonListView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
+            VStack(spacing: .zero) {
+                Divider()
+                    .background(.ultraThinMaterial)
                 listPokemons
-                .navigationTitle("Pokemon List")
+                .navigationTitle("")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Text("Title")
+                            .font(.largeTitle.bold())
+                    }
+                }
             }
         }
         .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
         .onAppear {
-            UINavigationBar.appearance().backgroundColor = UIColor(.cellBackground)
+            let coloredAppearance = UINavigationBarAppearance()
+            coloredAppearance.configureWithOpaqueBackground()
+            coloredAppearance.backgroundColor = UIColor(.cellBackground)
+            UINavigationBar.appearance().standardAppearance = coloredAppearance
+            UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
         }
     }
     
     private var listPokemons: some View {
         ScrollView {
-            Divider()
-                .background(.ultraThinMaterial)
             ForEach(viewModel.pokemons, id:\.id) { pokemon in
                 NavigationLink {
                     PokemonDetailView()
@@ -36,7 +47,6 @@ struct PokemonListView: View {
                 .buttonStyle(.plain)
             }
         }
-        .background(.white)
     }
 }
 
