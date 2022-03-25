@@ -1,18 +1,13 @@
 query GetAllPokemons {
-  allPokemon {
-    id
+  pokemons(first: 100){
+    number
     name
-    color
-    generation
-    sprites {
-      front_default
-      front_shiny
+    classification
+    types
+    evolutions {
+      number
+      name
     }
-    types {
-        name
-    }
-    evolves_to {
-      id
-    }
+    image
   }
 }
