@@ -50,15 +50,22 @@ struct PokemonListView: View {
     
     private var listPokemons: some View {
         ScrollView {
-            ForEach(viewModel.pokemons, id:\.id) { pokemon in
-                NavigationLink {
-                    PokemonDetailView(viewModel: PokemonDetailViewModel(
-                        pokemon: pokemon
-                    ))
-                } label: {
-                    PokemonCell(pokemon: pokemon)
+
+            ForEach(viewModel.classifications) { classification in
+                Text("\(classification)")
+                    .font(.title3)
+                DividerCustom()
+                
+                ForEach(viewModel.pokemonsGroupSection[classification] ?? [], id: \.idInt) { pokemon in
+                    NavigationLink {
+                        PokemonDetailView(viewModel: PokemonDetailViewModel(
+                            pokemon: pokemon
+                        ))
+                    } label: {
+                        PokemonCell(pokemon: pokemon)
+                    }
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
             }
         }
     }

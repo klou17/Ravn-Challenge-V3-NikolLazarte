@@ -19,6 +19,8 @@ struct AsyncImageCustom: View {
             ProgressView()
         }
         .frame(width: width, height: height)
+        .clipShape(Circle())
+        .shadow(color: .black, radius: 10, x: 0, y: 0)
     }
 }
 

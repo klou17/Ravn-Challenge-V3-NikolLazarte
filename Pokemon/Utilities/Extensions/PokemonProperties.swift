@@ -8,41 +8,29 @@
 import Foundation
 
 extension Pokemon {
-    var typesPokemon: [String] {
-        guard let types = types else { return [] }
-        return types.compactMap { $0?.name }
-    }
-    
-    var evolutionPokemon: [Int] {
-        guard let evolution = evolvesTo else { return [] }
-        return evolution.compactMap { $0?.id}
-    }
-    
     var namePokemon: String {
-        name?.capitalized ?? ""
+        name ?? ""
     }
     
     var idPokemon: String {
-        return "#" + String(format: "%03d", idInt)
+        return "#" + (number ?? "")
+    }
+    
+    var classificationPokemon: String {
+        classification ?? ""
     }
     
     var spriteFrontDefaultImage: URL? {
-        URL(string: sprites?.frontDefault ?? "")
+        URL(string: image ?? "")
     }
     
-    var spriteFrontShinyImage: URL? {
-        URL(string: sprites?.frontShiny ?? "")
-    }
-    
-    var generationPokemon: String {
-        generation ?? ""
-    }
-    
-    var colorPokemon: String {
-        color ?? ""
+    var typesPokemon: [String] {
+        guard let types = types else { return [] }
+        return types.compactMap { $0 }
     }
     
     var idInt: Int {
-        return Int(id ?? 0)
+        guard let id = number else { return 0 }
+        return Int(id) ?? 0
     }
 }

@@ -11,9 +11,9 @@ import Combine
 class PokemonDetailViewModel: ObservableObject {
     @Published var pokemon: Pokemon
     @Published var pokemonDescription = ""
+    @Published var pokemonColor = ""
     @Published var activeSprite = 0
     @Published var errorMessage: String?
-//    @Published var evolutionsPokemon: [Pokemon]
     
     private var cancellables = Set<AnyCancellable>()
     private let service: PokemonDetailService
@@ -21,18 +21,18 @@ class PokemonDetailViewModel: ObservableObject {
     init(pokemon: Pokemon, service: PokemonDetailService = PokemonDetailService()) {
         self.pokemon = pokemon
         self.service = service
-        getDetail(pokemon)
+        fetchDetail(pokemon)
     }
     
     func getSprite(pokemon: Pokemon) -> URL? {
         if activeSprite == 0 {
             return pokemon.spriteFrontDefaultImage
         }
-        return pokemon.spriteFrontShinyImage
+        return pokemon.spriteFrontDefaultImage
     }
     
     
-    func getDetail(_ pokemon: Pokemon) {
+    func fetchDetail(_ pokemon: Pokemon) {
         service.fetchPokemonDetail(id: pokemon.idInt)
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] result in
@@ -44,14 +44,16 @@ class PokemonDetailViewModel: ObservableObject {
                     }
                 
             }, receiveValue: { [weak self] in
-                self?.addFlavorText($0)
+                self?.receive(for: $0)
             })
             .store(in: &cancellables)
     }
     
-    func addFlavorText(_ response: PokemonDetailResponse) {
+    func receive(for response: PokemonDetailResponse) {
         let responseText = response.flavorTextEntries.first { $0.language.name == "en" && $0.flavorText.contains(pokemon.namePokemon)}?.flavorText ?? ""
 
+        self.pokemonColor = response.color.name
         self.pokemonDescription = responseText.components(separatedBy: .newlines).joined()
+        
     }
 }

@@ -13,7 +13,7 @@ protocol PokemonListServiceType {
     
 }
 
-typealias Pokemon = GetAllPokemonsQuery.Data.AllPokemon
+typealias Pokemon = GetAllPokemonsQuery.Data.Pokemon
 struct PokemonListService: PokemonListServiceType {
     private let network: Network
     
@@ -23,7 +23,7 @@ struct PokemonListService: PokemonListServiceType {
     
     func fetchPokemons() -> AnyPublisher<[Pokemon], Error> {
         network.fetch(GetAllPokemonsQuery())
-            .compactMap { $0.allPokemon?.compactMap{ $0 } }
+            .compactMap { $0.pokemons?.compactMap {$0}}
             .mapError { _ in NetworkError.failLoadData}
             .eraseToAnyPublisher()
     }

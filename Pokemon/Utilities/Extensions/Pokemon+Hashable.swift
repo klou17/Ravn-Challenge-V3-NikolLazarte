@@ -8,24 +8,14 @@
 import Foundation
 
 extension Pokemon: Equatable {
-    public static func == (lhs: GetAllPokemonsQuery.Data.AllPokemon, rhs: GetAllPokemonsQuery.Data.AllPokemon) -> Bool {
-        lhs.id == rhs.id &&
+    public static func == (lhs: GetAllPokemonsQuery.Data.Pokemon, rhs: GetAllPokemonsQuery.Data.Pokemon) -> Bool {
+        lhs.number == rhs.number &&
         lhs.name == rhs.name
     }
 }
 
 extension Pokemon: Hashable {
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+        hasher.combine(number)
     }
 }
-
-//extension Pokemon: Comparable {
-//    public static func < (lhs: GetAllPokemonsQuery.Data.AllPokemon, rhs: GetAllPokemonsQuery.Data.AllPokemon) -> Bool {
-//        lhs.generationPokemon < rhs.generationPokemon
-//    }
-//
-//    public static func > (lhs: GetAllPokemonsQuery.Data.AllPokemon, rhs: GetAllPokemonsQuery.Data.AllPokemon) -> Bool {
-//        lhs.generationPokemon > rhs.generationPokemon
-//    }
-//}

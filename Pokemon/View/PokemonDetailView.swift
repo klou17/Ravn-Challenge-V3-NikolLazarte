@@ -12,7 +12,7 @@ struct PokemonDetailView: View {
     
     var body: some View {
         ZStack {
-            Color(viewModel.pokemon.colorPokemon)
+            Color(viewModel.pokemonColor)
             
             VStack(spacing: .zero) {
                 imagePokemon
@@ -69,7 +69,7 @@ struct PokemonDetailView: View {
                 
                 types
                 
-                Text(viewModel.pokemon.generationPokemon)
+                Text(viewModel.pokemon.classificationPokemon)
                     .font(.body)
                 
                 Text(viewModel.pokemonDescription)
@@ -89,9 +89,9 @@ struct PokemonDetailView: View {
             Text("Evolutions")
                 .font(.title3)
             HStack {
-                ForEach(viewModel.pokemon.evolutionPokemon, id: \.self) { evolution in
-                    Text("\(evolution)")
-                }
+//                ForEach(viewModel.pokemon.evolutionPokemon, id: \.self) { evolution in
+//                    Text("\(evolution)")
+//                }
             }
         }
     }
@@ -112,8 +112,8 @@ struct PokemonDetailView: View {
 }
 
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        PokemonDetailView(viewModel: .init(pokemon: Pokemon(id: 3, name: "bulbasur", color: "green", generation: "Generation 1", sprites: Pokemon.Sprite.init(frontDefault: "", frontShiny: ""))))
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PokemonDetailView(viewModel: .init(pokemon: Pokemon(id: 3, name: "bulbasur", generation: "Generation 1", sprites: Pokemon.Sprite.init(frontDefault: "", frontShiny: ""))))
+//    }
+//}

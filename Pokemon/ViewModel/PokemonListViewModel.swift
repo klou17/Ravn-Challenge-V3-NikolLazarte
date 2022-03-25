@@ -9,24 +9,14 @@ import Foundation
 import Combine
 import Apollo
 
-//struct PokemonGeneration {
-//    let name: String
-//    var pokemons: [Pokemon]
-//}
-
-
 class PokemonListViewModel: ObservableObject {
     @Published var pokemons: [Pokemon] = []
     @Published var searchText = ""
     @Published var errorLoadData = false
     @Published var errorMessage: String?
-//    @Published var generations = [PokemonGeneration(name: "", pokemons: [])]
-//    @Published var generations = [String: [Pokemon]]()
-    
-    
+
     var searchResults: [Pokemon] {
         if searchText.isEmpty {
-            print("pokemons: \(pokemons)")
             return pokemons
         } else {
             return pokemons.filter { return $0.namePokemon.starts(with: searchText)}
@@ -34,26 +24,11 @@ class PokemonListViewModel: ObservableObject {
     }
     
     var pokemonsGroupSection: [String: [Pokemon]] {
-        return Dictionary(grouping: pokemons, by: { $0.generationPokemon })
+        return Dictionary(grouping: searchResults, by: { $0.classificationPokemon })
     }
     
-//    var generations: [String] {
-//        return pokemonsGroupSection.keys.sorted(by: <)
-//    }
-    
-    var pokemonsSectioned: [String: [Pokemon]] {
-        Dictionary(grouping: searchResults) {
-            $0.generationPokemon
-        }
-    }
-
-    var generations: [String] {
-        return pokemonsSectioned.keys.sorted(by: <).map { String($0) }
-    }
-
-    var evolutionsPokemon: [Pokemon] {
-        let group = pokemons.filter { $0.evolutionPokemon.contains( $0.idInt ) }
-        return group
+    var classifications: [String] {
+        return pokemonsGroupSection.keys.sorted(by: <)
     }
     
     private var service: PokemonListService
@@ -71,14 +46,16 @@ class PokemonListViewModel: ObservableObject {
                 switch completion {
                 case .finished:
                     self?.errorMessage = nil
+                    print("finished")
                 case .failure(let error):
                     self?.errorMessage = error.localizedDescription
+                    print("error")
                 }
                 
             }, receiveValue: { [weak self] in
                 self?.pokemons.append(contentsOf: $0)
-                print("pokemons \(self?.pokemons)")
                 self?.errorLoadData = false
+                print("receive")
             })
             .store(in: &cancellables)
     }

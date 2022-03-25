@@ -9,6 +9,7 @@ import Foundation
 
 struct PokemonDetailResponse: Codable {
     let flavorTextEntries: [Flavor]
+    let color: Color
         
     struct Flavor: Codable {
         let flavorText: String
@@ -16,6 +17,10 @@ struct PokemonDetailResponse: Codable {
     }
     
     struct Language: Codable {
+        let name: String
+    }
+    
+    struct Color: Codable {
         let name: String
     }
 }

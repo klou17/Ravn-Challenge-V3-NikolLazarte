@@ -10,7 +10,7 @@ import UIKit
 
 struct Constants {
     enum Network {
-        static let graphqlURL = "https://dex-server.herokuapp.com/"
+        static let graphqlURL = "https://graphql-pokemon2.vercel.app/"
         static let pokeApiURL = "https://pokeapi.co/api/v2/pokemon-species/"
     }
     
