@@ -52,9 +52,15 @@ struct PokemonListView: View {
         ScrollView {
 
             ForEach(viewModel.classifications) { classification in
-                Text("\(classification)")
-                    .font(.title3)
-                DividerCustom()
+                VStack(alignment: .leading, spacing: .zero) {
+                    Text("\(classification)")
+                        .font(.title3)
+                        .padding(.bottom, 3)
+                    DividerCustom()
+                }
+                .padding(.top, 20)
+                .padding(.bottom, 10)
+                .padding(.horizontal, 20)
                 
                 ForEach(viewModel.pokemonsGroupSection[classification] ?? [], id: \.idInt) { pokemon in
                     NavigationLink {
@@ -63,6 +69,7 @@ struct PokemonListView: View {
                         ))
                     } label: {
                         PokemonCell(pokemon: pokemon)
+                            .padding(.bottom, 10)
                     }
                     .buttonStyle(.plain)
                 }

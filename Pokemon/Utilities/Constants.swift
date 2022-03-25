@@ -10,20 +10,20 @@ import UIKit
 
 struct Constants {
     enum Network {
-        static let graphqlURL = "https://graphql-pokemon2.vercel.app/"
+        static let graphqlURL = "https://graphql-pokemon2.vercel.app"
         static let pokeApiURL = "https://pokeapi.co/api/v2/pokemon-species/"
     }
     
     enum ListCell {
         static let cornerRadius = 16.0
-        static let sizeSprite: CGFloat = 80
+        static let sizeSprite: CGFloat = 65
         static let sizeType: CGFloat = 50
         static let paddingLeadingSprite: CGFloat = -40
         static let paddingTrailingSprite: CGFloat = 10
         static let paddingTrailingType: CGFloat = -5
         static let paddingTrailingCell: CGFloat = 24
         static let paddingLeadingCell: CGFloat = 48
-        static let paddingInfoCell: CGFloat = 8
+        static let paddingInfoCell: CGFloat = 12
     }
     
     enum ErrorText {

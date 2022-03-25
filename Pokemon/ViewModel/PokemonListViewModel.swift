@@ -46,16 +46,13 @@ class PokemonListViewModel: ObservableObject {
                 switch completion {
                 case .finished:
                     self?.errorMessage = nil
-                    print("finished")
                 case .failure(let error):
                     self?.errorMessage = error.localizedDescription
-                    print("error")
                 }
                 
             }, receiveValue: { [weak self] in
                 self?.pokemons.append(contentsOf: $0)
                 self?.errorLoadData = false
-                print("receive")
             })
             .store(in: &cancellables)
     }

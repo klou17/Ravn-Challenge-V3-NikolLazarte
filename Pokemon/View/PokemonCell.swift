@@ -38,6 +38,7 @@ struct PokemonCell: View {
                 .fontWeight(.semibold)
             Text(pokemon.idPokemon)
         }
+        .padding(.leading, 7)
     }
     
     private var spriteFrontImage: some View {

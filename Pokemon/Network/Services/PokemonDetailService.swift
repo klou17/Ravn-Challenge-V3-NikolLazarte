@@ -18,9 +18,9 @@ struct PokemonDetailService: PokemonDetailServiceType {
     private let session: URLSession
     private let decoder: JSONDecoder
     
-    init(session: URLSession = .shared, decoder: JSONDecoder = .convertSnakeCase){
+    init(session: URLSession = .shared){
         self.session = session
-        self.decoder = decoder
+        self.decoder = JSONDecoder.convertSnakeCase
     }
     
     func fetchPokemonDetail(id: Int) -> AnyPublisher<PokemonDetailResponse, Error> {

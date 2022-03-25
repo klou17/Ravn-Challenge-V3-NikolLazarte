@@ -20,7 +20,7 @@ struct AsyncImageCustom: View {
         }
         .frame(width: width, height: height)
         .clipShape(Circle())
-        .shadow(color: .black, radius: 10, x: 0, y: 0)
+        .shadow(color: .black, radius: 8, x: 0, y: 0)
     }
 }
 

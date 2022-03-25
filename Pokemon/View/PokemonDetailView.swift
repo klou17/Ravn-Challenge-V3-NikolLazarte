@@ -34,6 +34,7 @@ struct PokemonDetailView: View {
             width: Constants.DetailView.sizeSpriteFront,
             height: Constants.DetailView.sizeSpriteFront
         )
+            .padding()
     }
     
     private var types: some View {
