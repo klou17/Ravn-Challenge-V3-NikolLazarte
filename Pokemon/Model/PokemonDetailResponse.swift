@@ -8,9 +8,14 @@
 import Foundation
 
 struct PokemonDetailResponse: Codable {
-    let flavours: Flavour
+    let flavorTextEntries: [Flavor]
         
-    struct Flavour: Codable {
+    struct Flavor: Codable {
+        let flavorText: String
+        let language: Language
+    }
+    
+    struct Language: Codable {
         let name: String
     }
 }

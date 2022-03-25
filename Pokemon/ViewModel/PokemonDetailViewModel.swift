@@ -8,31 +8,12 @@
 import Foundation
 import Combine
 
-//protocol PokemonDetailType {
-//    var string: String { get}
-//    var flavour: String { get set }
-//}
-//
-//extension Pokemon: PokemonDetailType {
-//    var string: String {
-//        return ""
-//    }
-//
-////    private var string: String { return "" }
-//    var flavour: String {
-//        get {
-//            return string
-//        }
-//        set {
-//            self = newValue
-//        }
-//    }
-//}
-
 class PokemonDetailViewModel: ObservableObject {
     @Published var pokemon: Pokemon
+    @Published var pokemonDescription = ""
     @Published var activeSprite = 0
     @Published var errorMessage: String?
+//    @Published var evolutionsPokemon: [Pokemon]
     
     private var cancellables = Set<AnyCancellable>()
     private let service: PokemonDetailService
@@ -40,6 +21,7 @@ class PokemonDetailViewModel: ObservableObject {
     init(pokemon: Pokemon, service: PokemonDetailService = PokemonDetailService()) {
         self.pokemon = pokemon
         self.service = service
+        getDetail(pokemon)
     }
     
     func getSprite(pokemon: Pokemon) -> URL? {
@@ -48,6 +30,7 @@ class PokemonDetailViewModel: ObservableObject {
         }
         return pokemon.spriteFrontShinyImage
     }
+    
     
     func getDetail(_ pokemon: Pokemon) {
         service.fetchPokemonDetail(id: pokemon.idInt)
@@ -60,10 +43,15 @@ class PokemonDetailViewModel: ObservableObject {
                         self?.errorMessage = error.localizedDescription
                     }
                 
-            }, receiveValue: { _ in
-//                [weak self] response in
-//                self?.pokemon.flavour = response.flavours.first.debugDescription
+            }, receiveValue: { [weak self] in
+                self?.addFlavorText($0)
             })
             .store(in: &cancellables)
+    }
+    
+    func addFlavorText(_ response: PokemonDetailResponse) {
+        let responseText = response.flavorTextEntries.first { $0.language.name == "en" && $0.flavorText.contains(pokemon.namePokemon)}?.flavorText ?? ""
+
+        self.pokemonDescription = responseText.components(separatedBy: .newlines).joined()
     }
 }

@@ -19,14 +19,14 @@ struct PokemonListView: View {
                 VStack(spacing: .zero) {
                     DividerCustom()
                     listPokemons
-                    .navigationTitle("")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Text("Pokemon List")
-                                .font(.largeTitle.bold())
-                        }
-                    }
+                }
+            }
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("Pokemon List")
+                        .font(.largeTitle.bold())
                 }
             }
         }
@@ -44,6 +44,7 @@ struct PokemonListView: View {
             coloredAppearance.backgroundColor = UIColor(.cellBackground)
             UINavigationBar.appearance().standardAppearance = coloredAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
+            viewModel.subscriptions()
         }
     }
     
@@ -62,4 +63,3 @@ struct PokemonListView: View {
         }
     }
 }
-

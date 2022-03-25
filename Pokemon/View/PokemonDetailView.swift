@@ -61,29 +61,37 @@ struct PokemonDetailView: View {
     }
     
     private var detailPokemon: some View {
-        VStack {
-            Text(viewModel.pokemon.idPokemon + " " + viewModel.pokemon.namePokemon)
-                .font(.title)
-                .padding(.top, Constants.DetailView.paddingNameId)
-            
-            types
-            
-            Text(viewModel.pokemon.generationPokemons)
-                .font(.body)
-                .padding(.bottom, Constants.DetailView.paddingGeneration)
-            
-            DividerCustom()
-            
-            evolutions
+        ScrollView {
+            VStack {
+                Text(viewModel.pokemon.idPokemon + " " + viewModel.pokemon.namePokemon)
+                    .font(.title)
+                    .padding(.top, Constants.DetailView.paddingNameId)
+                
+                types
+                
+                Text(viewModel.pokemon.generationPokemon)
+                    .font(.body)
+                
+                Text(viewModel.pokemonDescription)
+                    .multilineTextAlignment(.center)
+                    .font(.footnote)
+                    .padding(17)
+                
+                DividerCustom()
+                
+                evolutions
+            }
         }
     }
     
     private var evolutions: some View {
-        ScrollView {
+        Group {
             Text("Evolutions")
                 .font(.title3)
-            ZStack {
-                evolutionItem(for: viewModel.pokemon)
+            HStack {
+                ForEach(viewModel.pokemon.evolutionPokemon, id: \.self) { evolution in
+                    Text("\(evolution)")
+                }
             }
         }
     }

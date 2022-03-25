@@ -9,11 +9,20 @@ import Foundation
 import Combine
 import Apollo
 
+//struct PokemonGeneration {
+//    let name: String
+//    var pokemons: [Pokemon]
+//}
+
+
 class PokemonListViewModel: ObservableObject {
     @Published var pokemons: [Pokemon] = []
     @Published var searchText = ""
     @Published var errorLoadData = false
     @Published var errorMessage: String?
+//    @Published var generations = [PokemonGeneration(name: "", pokemons: [])]
+//    @Published var generations = [String: [Pokemon]]()
+    
     
     var searchResults: [Pokemon] {
         if searchText.isEmpty {
@@ -24,12 +33,34 @@ class PokemonListViewModel: ObservableObject {
         }
     }
     
+    var pokemonsGroupSection: [String: [Pokemon]] {
+        return Dictionary(grouping: pokemons, by: { $0.generationPokemon })
+    }
+    
+//    var generations: [String] {
+//        return pokemonsGroupSection.keys.sorted(by: <)
+//    }
+    
+    var pokemonsSectioned: [String: [Pokemon]] {
+        Dictionary(grouping: searchResults) {
+            $0.generationPokemon
+        }
+    }
+
+    var generations: [String] {
+        return pokemonsSectioned.keys.sorted(by: <).map { String($0) }
+    }
+
+    var evolutionsPokemon: [Pokemon] {
+        let group = pokemons.filter { $0.evolutionPokemon.contains( $0.idInt ) }
+        return group
+    }
+    
     private var service: PokemonListService
     private var cancellables = Set<AnyCancellable>()
     
     init(service: PokemonListService = PokemonListService()){
         self.service = service
-        subscriptions()
     }
     
     func subscriptions() {
@@ -45,9 +76,9 @@ class PokemonListViewModel: ObservableObject {
                 }
                 
             }, receiveValue: { [weak self] in
-//                self?.pokemons.append(contentsOf: $0)
+                self?.pokemons.append(contentsOf: $0)
+                print("pokemons \(self?.pokemons)")
                 self?.errorLoadData = false
-                self?.pokemons = $0
             })
             .store(in: &cancellables)
     }

@@ -19,3 +19,13 @@ extension Pokemon: Hashable {
         hasher.combine(id)
     }
 }
+
+//extension Pokemon: Comparable {
+//    public static func < (lhs: GetAllPokemonsQuery.Data.AllPokemon, rhs: GetAllPokemonsQuery.Data.AllPokemon) -> Bool {
+//        lhs.generationPokemon < rhs.generationPokemon
+//    }
+//
+//    public static func > (lhs: GetAllPokemonsQuery.Data.AllPokemon, rhs: GetAllPokemonsQuery.Data.AllPokemon) -> Bool {
+//        lhs.generationPokemon > rhs.generationPokemon
+//    }
+//}

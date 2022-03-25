@@ -13,10 +13,10 @@ extension Pokemon {
         return types.compactMap { $0?.name }
     }
     
-//    var evolutionPokemon: [Int] {
-//        guard let evolution = evolvesTo else { return [] }
-//        return evolution.compactMap { $0?.id}
-//    }
+    var evolutionPokemon: [Int] {
+        guard let evolution = evolvesTo else { return [] }
+        return evolution.compactMap { $0?.id}
+    }
     
     var namePokemon: String {
         name?.capitalized ?? ""
@@ -34,7 +34,7 @@ extension Pokemon {
         URL(string: sprites?.frontShiny ?? "")
     }
     
-    var generationPokemons: String {
+    var generationPokemon: String {
         generation ?? ""
     }
     
