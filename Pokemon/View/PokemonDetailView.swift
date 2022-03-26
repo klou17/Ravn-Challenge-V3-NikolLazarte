@@ -64,46 +64,74 @@ struct PokemonDetailView: View {
     private var detailPokemon: some View {
         ScrollView {
             VStack {
-                Text(viewModel.pokemon.idPokemon + " " + viewModel.pokemon.namePokemon)
-                    .font(.title)
-                    .padding(.top, Constants.DetailView.paddingNameId)
-                
+                nameAndId
                 types
-                
-                Text(viewModel.pokemon.classificationPokemon)
-                    .font(.body)
-                
-                Text(viewModel.pokemonDescription)
-                    .multilineTextAlignment(.center)
-                    .font(.footnote)
-                    .padding(17)
-                
-                DividerCustom()
-                
+                classification
+                description
                 evolutions
             }
         }
     }
     
+    private var nameAndId: some View {
+        Text(viewModel.pokemon.idPokemon + " " + viewModel.pokemon.namePokemon)
+            .font(.title)
+            .padding(.top, Constants.DetailView.paddingNameId)
+    }
+    
+    private var classification: some View {
+        Text(viewModel.pokemon.classificationPokemon)
+            .font(.body)
+    }
+    
+    private var description: some View {
+        Text(viewModel.pokemonDescription)
+            .multilineTextAlignment(.center)
+            .font(.footnote)
+            .padding(17)
+    }
+    
     private var evolutions: some View {
         Group {
-            Text("Evolutions")
-                .font(.title3)
-            HStack {
-//                ForEach(viewModel.pokemon.evolutionPokemon, id: \.self) { evolution in
-//                    Text("\(evolution)")
-//                }
+            if !(viewModel.getEvolutions(pokemon: viewModel.pokemon)?.isEmpty ?? true) {
+                DividerCustom()
+                
+                Text("Evolutions")
+                    .font(.title3)
+                HStack {
+                    ForEach(viewModel.getEvolutions(pokemon: viewModel.pokemon) ?? [], id: \.namePokemon) { evolution in
+                        evolutionItem(for: evolution)
+                    }
+                }
             }
+            
         }
     }
     
     private func evolutionItem(for pokemon: Pokemon) -> some View {
+        HStack {
+            evolutionDetail(pokemon: viewModel.pokemon)
+            
+            Image(systemName: "arrow.right")
+            
+            NavigationLink {
+                PokemonDetailView(viewModel: PokemonDetailViewModel(
+                    pokemon: pokemon, evolutions: viewModel.getEvolutions(pokemon: pokemon)
+                ))
+            } label: {
+                evolutionDetail(pokemon: pokemon)
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
+    }
+    
+    private func evolutionDetail(pokemon: Pokemon) -> some View {
         VStack {
-            AsyncImage(url: pokemon.spriteFrontDefaultImage)
-                .frame(width: 80, height: 80)
-                .overlay {
-                    Circle().background(.gray)
-                }
+            AsyncImageCustom(
+                url: viewModel.getSprite(pokemon: pokemon),
+                width: 50,
+                height: 50
+            )
             Text(pokemon.namePokemon)
                 .fontWeight(.semibold)
 
@@ -111,10 +139,3 @@ struct PokemonDetailView: View {
         }
     }
 }
-
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PokemonDetailView(viewModel: .init(pokemon: Pokemon(id: 3, name: "bulbasur", generation: "Generation 1", sprites: Pokemon.Sprite.init(frontDefault: "", frontShiny: ""))))
-//    }
-//}

@@ -38,7 +38,7 @@ class PokemonListViewModel: ObservableObject {
         self.service = service
     }
     
-    func subscriptions() {
+    func fetchPokemons() {
         errorLoadData = true
         service.fetchPokemons()
             .receive(on: RunLoop.main)
@@ -55,5 +55,13 @@ class PokemonListViewModel: ObservableObject {
                 self?.errorLoadData = false
             })
             .store(in: &cancellables)
+    }
+    
+    func getEvolutions(to pokemon: Pokemon) -> [Pokemon]? {
+        guard let evolutions = pokemon.evolutions else { return nil }
+        let evolutionNames = evolutions.map { $0?.name }
+        let filter = pokemons.filter {evolutionNames.contains( $0.name) }
+//        let filterSame = filter.filter { filter.contains( $0.name == pokemon.name )}
+        return filter
     }
 }

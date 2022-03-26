@@ -9,7 +9,7 @@ public final class GetAllPokemonsQuery: GraphQLQuery {
   public let operationDefinition: String =
     """
     query GetAllPokemons {
-      pokemons(first: 100) {
+      pokemons(first: 250) {
         __typename
         number
         name
@@ -35,7 +35,7 @@ public final class GetAllPokemonsQuery: GraphQLQuery {
 
     public static var selections: [GraphQLSelection] {
       return [
-        GraphQLField("pokemons", arguments: ["first": 100], type: .list(.object(Pokemon.selections))),
+        GraphQLField("pokemons", arguments: ["first": 250], type: .list(.object(Pokemon.selections))),
       ]
     }
 

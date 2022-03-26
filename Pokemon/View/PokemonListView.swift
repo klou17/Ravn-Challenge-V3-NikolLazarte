@@ -42,7 +42,7 @@ struct PokemonListView: View {
             coloredAppearance.backgroundColor = UIColor(.cellBackground)
             UINavigationBar.appearance().standardAppearance = coloredAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
-            viewModel.subscriptions()
+            viewModel.fetchPokemons()
         }
     }
     
@@ -68,7 +68,7 @@ struct PokemonListView: View {
                         ForEach(viewModel.pokemonsGroupSection[classification] ?? [], id: \.idInt) { pokemon in
                             NavigationLink {
                                 PokemonDetailView(viewModel: PokemonDetailViewModel(
-                                    pokemon: pokemon
+                                    pokemon: pokemon, evolutions: viewModel.getEvolutions(to: pokemon) 
                                 ))
                             } label: {
                                 PokemonCell(pokemon: pokemon)
