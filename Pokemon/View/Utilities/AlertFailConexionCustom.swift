@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct AlertCustom: ViewModifier {
+struct AlertFailConexionCustom: ViewModifier {
     @Binding var isPresented: Bool
     let typeError: NetworkError
+    let tryAgain: () -> ()
     
     func body(content: Content) -> some View {
         content
@@ -17,14 +18,15 @@ struct AlertCustom: ViewModifier {
                 Alert(
                     title: Text(typeError.messageErrorTitle),
                     message: Text(typeError.messageErrorBody),
-                    dismissButton: .default(Text("OK"))
+                    primaryButton: .cancel(Text("Try Again"), action: tryAgain),
+                    secondaryButton: .default(Text("OK"))
                 )
             }
     }
 }
 
 extension View {
-    func alertCustom(isPresented: Binding<Bool>, typeError: NetworkError) -> some View {
-        return self.modifier(AlertCustom(isPresented: isPresented, typeError: typeError))
+    func alertFailConexionCustom(isPresented: Binding<Bool>, typeError: NetworkError, tryAgain: @escaping () -> () ) -> some View {
+        return self.modifier(AlertFailConexionCustom(isPresented: isPresented, typeError: typeError, tryAgain: tryAgain))
     }
 }
