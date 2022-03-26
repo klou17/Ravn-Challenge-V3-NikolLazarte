@@ -31,6 +31,8 @@ struct Constants {
         static let connectivityIssue = "Connectivity Issue"
         static let failLoadData = "Failed to Load Data"
         static let problemToConnect = "There is a problem trying to connect.\nPlease check your connectivity."
+        static let noResults = "No Results Found"
+        static let noAnyPokemon = "We can't any pokemon matching your search"
     }
     
     enum DetailView {

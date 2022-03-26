@@ -11,6 +11,7 @@ enum NetworkError: Error {
     case invalidURL
     case failLoadData
     case failConexion
+    case noResultsFound
 
     var messageErrorTitle: String {
         switch self {
@@ -18,6 +19,8 @@ enum NetworkError: Error {
             return Constants.ErrorText.wasError
         case .failConexion:
             return Constants.ErrorText.connectivityIssue
+        case .noResultsFound:
+            return Constants.ErrorText.noResults
         }
     }
     
@@ -27,6 +30,8 @@ enum NetworkError: Error {
             return Constants.ErrorText.failLoadData
         case .failConexion:
             return Constants.ErrorText.problemToConnect
+        case .noResultsFound:
+            return Constants.ErrorText.noAnyPokemon
         }
     }
 }

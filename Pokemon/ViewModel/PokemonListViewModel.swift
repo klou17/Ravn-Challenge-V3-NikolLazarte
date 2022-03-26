@@ -13,7 +13,7 @@ class PokemonListViewModel: ObservableObject {
     @Published var pokemons: [Pokemon] = []
     @Published var searchText = ""
     @Published var errorLoadData = false
-    @Published var errorMessage: String?
+    @Published var error: NetworkError?
 
     var searchResults: [Pokemon] {
         if searchText.isEmpty {
@@ -45,9 +45,9 @@ class PokemonListViewModel: ObservableObject {
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished:
-                    self?.errorMessage = nil
-                case .failure(let error):
-                    self?.errorMessage = error.localizedDescription
+                    self?.error = nil
+                case .failure:
+                    self?.error = .failLoadData
                 }
                 
             }, receiveValue: { [weak self] in

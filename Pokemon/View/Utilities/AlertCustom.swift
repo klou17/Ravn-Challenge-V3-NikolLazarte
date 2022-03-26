@@ -5,28 +5,26 @@
 //  Created by Nikol Lazarte on 24/03/22.
 //
 
-//import SwiftUI
-//
-//struct AlertCustom: ViewModifier {
-//    
-//    func body(content: Content) -> some View {
-//        content
-//            .alert(item: $networkError) { error in
-//                Alert(
-//                    title: Text(error.userMessageTitle),
-//                    message: Text(error.userMessageDescription),
-//                    dismissButton: .default(Text("Ok"), action: dismissAction)
-//                )
-//            }
-//    }
-//}
-//
-//extension View {
-//    func alertCustom(networkError: Binding<NetworkError?>, dismissAction: @escaping () -> Void) -> some View {
-//        modifier(FailedToLoadDataAlert(
-//            networkError: networkError,
-//            dismissAction: dismissAction
-//        ))
-//    }
-//}
-//
+import SwiftUI
+
+struct AlertCustom: ViewModifier {
+    @Binding var isPresented: Bool
+    let typeError: NetworkError
+    
+    func body(content: Content) -> some View {
+        content
+            .alert(isPresented: $isPresented) {
+                Alert(
+                    title: Text(typeError.messageErrorTitle),
+                    message: Text(typeError.messageErrorBody),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+    }
+}
+
+extension View {
+    func alertCustom(isPresented: Binding<Bool>, typeError: NetworkError) -> some View {
+        return self.modifier(AlertCustom(isPresented: isPresented, typeError: typeError))
+    }
+}

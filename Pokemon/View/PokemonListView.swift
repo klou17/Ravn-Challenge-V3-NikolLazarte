@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PokemonListView: View {
     @ObservedObject var viewModel = PokemonListViewModel()
+    @ObservedObject var monitor = InternetConexion()
+    @State var noResults = true
     
     var body: some View {
         NavigationView {
@@ -31,13 +33,8 @@ struct PokemonListView: View {
             }
         }
         .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
-        .alert(item: $viewModel.errorMessage) { _ in
-            Alert(
-                title: Text(NetworkError.failLoadData.messageErrorTitle),
-                message: Text(NetworkError.failLoadData.messageErrorBody),
-                dismissButton: .default(Text("OK"))
-            )
-        }
+        .alertCustom(isPresented: $monitor.isFailConexion, typeError: viewModel.error ?? .failConexion)
+        .imageErrorCustom(typeError: viewModel.error ?? NetworkError.failLoadData)
         .onAppear {
             let coloredAppearance = UINavigationBarAppearance()
             coloredAppearance.configureWithOpaqueBackground()
@@ -50,30 +47,54 @@ struct PokemonListView: View {
     
     private var listPokemons: some View {
         ScrollView {
-
-            ForEach(viewModel.classifications) { classification in
-                VStack(alignment: .leading, spacing: .zero) {
-                    Text("\(classification)")
-                        .font(.title3)
-                        .padding(.bottom, 3)
-                    DividerCustom()
-                }
-                .padding(.top, 20)
-                .padding(.bottom, 10)
-                .padding(.horizontal, 20)
+            if viewModel.searchResults.isEmpty && !viewModel.searchText.isEmpty {
                 
-                ForEach(viewModel.pokemonsGroupSection[classification] ?? [], id: \.idInt) { pokemon in
-                    NavigationLink {
-                        PokemonDetailView(viewModel: PokemonDetailViewModel(
-                            pokemon: pokemon
-                        ))
-                    } label: {
-                        PokemonCell(pokemon: pokemon)
-                            .padding(.bottom, 10)
+                noDataView
+                
+            } else {
+                ForEach(viewModel.classifications) { classification in
+                    VStack(alignment: .leading, spacing: .zero) {
+                        Text("\(classification)")
+                            .font(.title3)
+                            .padding(.bottom, 3)
+                        DividerCustom()
                     }
-                    .buttonStyle(.plain)
+                    .padding(.top, 20)
+                    .padding(.bottom, 10)
+                    .padding(.horizontal, 20)
+                    
+                    ForEach(viewModel.pokemonsGroupSection[classification] ?? [], id: \.idInt) { pokemon in
+                        NavigationLink {
+                            PokemonDetailView(viewModel: PokemonDetailViewModel(
+                                pokemon: pokemon
+                            ))
+                        } label: {
+                            PokemonCell(pokemon: pokemon)
+                                .padding(.bottom, 10)
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
             }
+        }
+    }
+    
+    private var noDataView: some View {
+        VStack {
+            Image(systemName: "tray.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 50, height: 50)
+            Text("No Data")
+        }
+        .foregroundColor(Color.gray)
+        .padding(.top, 150)
+        .alert(isPresented: $noResults) {
+            Alert(
+                title: Text("\(NetworkError.noResultsFound.messageErrorTitle)"),
+                message: Text("\(NetworkError.noResultsFound.messageErrorBody)"),
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
 }
