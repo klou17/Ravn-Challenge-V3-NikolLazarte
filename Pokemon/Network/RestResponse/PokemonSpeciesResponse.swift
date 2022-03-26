@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct PokemonDetailResponse: Codable {
+struct PokemonSpeciesResponse: Codable {
     let flavorTextEntries: [Flavor]
     let color: Color
-        
+    
     struct Flavor: Codable {
         let flavorText: String
         let language: Language

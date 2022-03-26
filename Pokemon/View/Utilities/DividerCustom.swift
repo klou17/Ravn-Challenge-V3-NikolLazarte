@@ -10,7 +10,7 @@ import SwiftUI
 struct DividerCustom: View {
     var body: some View {
         Divider()
-            .background(Color.divider)
+            .background(Color("divider"))
     }
 }
 

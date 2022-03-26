@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 protocol PokemonDetailServiceType {
-    func fetchPokemonDetail(id: Int) -> AnyPublisher<PokemonDetailResponse, Error>
-    
+    func fetchSpeciesDetail(id: Int) -> AnyPublisher<PokemonSpeciesResponse, Error>
+    func fetchSpritesDetail(id: Int) -> AnyPublisher<PokemonSpritesResponse, Error>
 }
 
 
@@ -23,8 +23,8 @@ struct PokemonDetailService: PokemonDetailServiceType {
         self.decoder = JSONDecoder.convertSnakeCase
     }
     
-    func fetchPokemonDetail(id: Int) -> AnyPublisher<PokemonDetailResponse, Error> {
-        guard let url = URL(string: Constants.Network.pokeApiURL + "\(id)/") else {
+    func fetchSpeciesDetail(id: Int) -> AnyPublisher<PokemonSpeciesResponse, Error> {
+        guard let url = URL(string: Constants.Network.restSpeciesURL + "\(id)/") else {
             return Fail(error: NetworkError.invalidURL)
                 .eraseToAnyPublisher()
         }
@@ -32,7 +32,20 @@ struct PokemonDetailService: PokemonDetailServiceType {
         return session.dataTaskPublisher(for: url)
             .map { $0.data }
             .mapError { _ in return NetworkError.failLoadData }
-            .decode(type: PokemonDetailResponse.self, decoder: decoder)
+            .decode(type: PokemonSpeciesResponse.self, decoder: decoder)
+            .eraseToAnyPublisher()
+    }
+    
+    func fetchSpritesDetail(id: Int) -> AnyPublisher<PokemonSpritesResponse, Error> {
+        guard let url = URL(string: Constants.Network.restSpritesURL + "\(id)/") else {
+            return Fail(error: NetworkError.invalidURL)
+                .eraseToAnyPublisher()
+        }
+
+        return session.dataTaskPublisher(for: url)
+            .map { response in response.data }
+            .mapError { _ in return NetworkError.failLoadData }
+            .decode(type: PokemonSpritesResponse.self, decoder: decoder)
             .eraseToAnyPublisher()
     }
 }

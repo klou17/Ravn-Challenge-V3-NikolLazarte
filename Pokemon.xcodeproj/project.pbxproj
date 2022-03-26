@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		21C35D9327EEDA6000517AD6 /* InternetConexion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C35D9227EEDA6000517AD6 /* InternetConexion.swift */; };
 		21C35D9727EF612C00517AD6 /* AlertNoLoadDataCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C35D9627EF612C00517AD6 /* AlertNoLoadDataCustom.swift */; };
+		21C35D9927EF793900517AD6 /* PokemonSpritesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C35D9827EF793900517AD6 /* PokemonSpritesResponse.swift */; };
 		21CAB03D27E82D030082879A /* PokemonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CAB03C27E82D030082879A /* PokemonApp.swift */; };
 		21CAB03F27E82D030082879A /* PokemonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CAB03E27E82D030082879A /* PokemonListView.swift */; };
 		21CAB04127E82D060082879A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21CAB04027E82D060082879A /* Assets.xcassets */; };
@@ -38,7 +39,7 @@
 		21F5281D27EBCB2E00EC51C7 /* Pokemon+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5281C27EBCB2E00EC51C7 /* Pokemon+Hashable.swift */; };
 		21F5281F27EBCC3A00EC51C7 /* PokemonProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5281E27EBCC3A00EC51C7 /* PokemonProperties.swift */; };
 		21F5282127EC179000EC51C7 /* PokemonDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5282027EC179000EC51C7 /* PokemonDetailService.swift */; };
-		21F5282327EC1CB000EC51C7 /* PokemonDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5282227EC1CB000EC51C7 /* PokemonDetailResponse.swift */; };
+		21F5282327EC1CB000EC51C7 /* PokemonSpeciesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5282227EC1CB000EC51C7 /* PokemonSpeciesResponse.swift */; };
 		21F5282527EC3C0200EC51C7 /* CornerRadiusCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5282427EC3C0200EC51C7 /* CornerRadiusCustom.swift */; };
 		21F5282827ED060700EC51C7 /* DividerCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5282727ED060700EC51C7 /* DividerCustom.swift */; };
 		21F5282A27ED099500EC51C7 /* AsyncImageCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5282927ED099500EC51C7 /* AsyncImageCustom.swift */; };
@@ -67,6 +68,7 @@
 /* Begin PBXFileReference section */
 		21C35D9227EEDA6000517AD6 /* InternetConexion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConexion.swift; sourceTree = "<group>"; };
 		21C35D9627EF612C00517AD6 /* AlertNoLoadDataCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNoLoadDataCustom.swift; sourceTree = "<group>"; };
+		21C35D9827EF793900517AD6 /* PokemonSpritesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonSpritesResponse.swift; sourceTree = "<group>"; };
 		21CAB03927E82D030082879A /* Pokemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21CAB03C27E82D030082879A /* PokemonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonApp.swift; sourceTree = "<group>"; };
 		21CAB03E27E82D030082879A /* PokemonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListView.swift; sourceTree = "<group>"; };
@@ -93,7 +95,7 @@
 		21F5281C27EBCB2E00EC51C7 /* Pokemon+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pokemon+Hashable.swift"; sourceTree = "<group>"; };
 		21F5281E27EBCC3A00EC51C7 /* PokemonProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonProperties.swift; sourceTree = "<group>"; };
 		21F5282027EC179000EC51C7 /* PokemonDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailService.swift; sourceTree = "<group>"; };
-		21F5282227EC1CB000EC51C7 /* PokemonDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailResponse.swift; sourceTree = "<group>"; };
+		21F5282227EC1CB000EC51C7 /* PokemonSpeciesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonSpeciesResponse.swift; sourceTree = "<group>"; };
 		21F5282427EC3C0200EC51C7 /* CornerRadiusCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusCustom.swift; sourceTree = "<group>"; };
 		21F5282727ED060700EC51C7 /* DividerCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerCustom.swift; sourceTree = "<group>"; };
 		21F5282927ED099500EC51C7 /* AsyncImageCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageCustom.swift; sourceTree = "<group>"; };
@@ -133,6 +135,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21C35D9A27EF7AEE00517AD6 /* RestResponse */ = {
+			isa = PBXGroup;
+			children = (
+				21C35D9827EF793900517AD6 /* PokemonSpritesResponse.swift */,
+				21F5282227EC1CB000EC51C7 /* PokemonSpeciesResponse.swift */,
+			);
+			path = RestResponse;
+			sourceTree = "<group>";
+		};
 		21CAB03027E82D030082879A = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +207,7 @@
 		21CAB06627E82D150082879A /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				21C35D9A27EF7AEE00517AD6 /* RestResponse */,
 				21F5281727EA13D500EC51C7 /* Services */,
 				21CAB07A27E82FA60082879A /* GraphQL */,
 			);
@@ -216,7 +228,6 @@
 		21CAB06827E82D470082879A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				21F5282227EC1CB000EC51C7 /* PokemonDetailResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -477,9 +488,10 @@
 				21F5281F27EBCC3A00EC51C7 /* PokemonProperties.swift in Sources */,
 				21C35D9727EF612C00517AD6 /* AlertNoLoadDataCustom.swift in Sources */,
 				21CAB08327E8D23C0082879A /* API.swift in Sources */,
-				21F5282327EC1CB000EC51C7 /* PokemonDetailResponse.swift in Sources */,
+				21F5282327EC1CB000EC51C7 /* PokemonSpeciesResponse.swift in Sources */,
 				21CAB08C27E8E4EB0082879A /* PokemonCell.swift in Sources */,
 				21F5282E27EDAFC500EC51C7 /* Decoder.swift in Sources */,
+				21C35D9927EF793900517AD6 /* PokemonSpritesResponse.swift in Sources */,
 				21F5282A27ED099500EC51C7 /* AsyncImageCustom.swift in Sources */,
 				21C35D9327EEDA6000517AD6 /* InternetConexion.swift in Sources */,
 				21F5281B27EA703000EC51C7 /* NetworkError.swift in Sources */,

@@ -30,7 +30,7 @@ struct PokemonDetailView: View {
     
     private var imagePokemon: some View {
         AsyncImageCustom (
-            url: viewModel.getSprite(pokemon: viewModel.pokemon),
+            url: viewModel.urlSprite,
             width: Constants.DetailView.sizeSpriteFront,
             height: Constants.DetailView.sizeSpriteFront
         )

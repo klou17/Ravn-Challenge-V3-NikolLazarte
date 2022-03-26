@@ -15,6 +15,8 @@ class PokemonDetailViewModel: ObservableObject {
     @Published var pokemonColor = ""
     @Published var activeSprite = 0
     @Published var errorMessage: String?
+    @Published var pokemonDefault = ""
+    @Published var pokemonShiny = ""
     
     private var cancellables = Set<AnyCancellable>()
     private let service: PokemonDetailService
@@ -25,16 +27,15 @@ class PokemonDetailViewModel: ObservableObject {
         fetchDetail(pokemon)
     }
     
-    func getSprite(pokemon: Pokemon) -> URL? {
+    var urlSprite: URL? {
         if activeSprite == 0 {
-            return pokemon.spriteFrontDefaultImage
-        }
-        return pokemon.spriteFrontDefaultImage
+           return URL(string: pokemonDefault)
+       }
+       return URL(string: pokemonShiny)
     }
     
-    
     func fetchDetail(_ pokemon: Pokemon) {
-        service.fetchPokemonDetail(id: pokemon.idInt)
+        service.fetchSpeciesDetail(id: pokemon.idInt)
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] result in
                 switch result {
@@ -48,13 +49,32 @@ class PokemonDetailViewModel: ObservableObject {
                 self?.receive(for: $0)
             })
             .store(in: &cancellables)
+        
+        service.fetchSpritesDetail(id: pokemon.idInt)
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { [weak self] result in
+                switch result {
+                    case .finished:
+                        self?.errorMessage = nil
+                    case .failure(let error):
+                        self?.errorMessage = error.localizedDescription
+                    }
+                
+            }, receiveValue: { [weak self] in
+                self?.receiveSprites(for: $0)
+            })
+            .store(in: &cancellables)
     }
     
-    func receive(for response: PokemonDetailResponse) {
+    func receiveSprites(for response: PokemonSpritesResponse) {
+        self.pokemonDefault = response.sprites.frontDefault
+        self.pokemonShiny = response.sprites.frontShiny
+    }
+    
+    func receive(for response: PokemonSpeciesResponse) {
         let responseText = response.flavorTextEntries.first { $0.language.name == "en" && $0.flavorText.contains(pokemon.namePokemon)}?.flavorText ?? ""
 
         self.pokemonColor = response.color.name
         self.pokemonDescription = responseText.components(separatedBy: .newlines).joined()
-        
     }
 }
