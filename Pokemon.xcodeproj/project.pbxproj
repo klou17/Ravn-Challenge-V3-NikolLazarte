@@ -170,7 +170,6 @@
 				21F5280427E8F87900EC51C7 /* Resources */,
 				21CAB08627E8DD750082879A /* Utilities */,
 				21CAB06927E82D4D0082879A /* ViewModel */,
-				21CAB06827E82D470082879A /* Model */,
 				21CAB06727E82D3C0082879A /* View */,
 				21CAB06627E82D150082879A /* Network */,
 				21CAB03C27E82D030082879A /* PokemonApp.swift */,
@@ -223,13 +222,6 @@
 				21CAB08B27E8E4EB0082879A /* PokemonCell.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		21CAB06827E82D470082879A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		21CAB06927E82D4D0082879A /* ViewModel */ = {

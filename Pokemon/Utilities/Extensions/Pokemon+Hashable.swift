@@ -19,10 +19,3 @@ extension Pokemon: Hashable {
         hasher.combine(number)
     }
 }
-
-//extension Pokemon: Identifiable {
-//    public var id: ObjectIdentifier {
-//        namePokemon
-//    }
-//
-//}

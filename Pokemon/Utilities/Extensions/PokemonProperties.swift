@@ -33,9 +33,4 @@ extension Pokemon {
         guard let id = number else { return 0 }
         return Int(id) ?? 0
     }
-    
-    var evolutionsPokemon: [String] {
-        guard let evolutions = evolutions else { return [] }
-        return evolutions.compactMap { $0?.name }
-    }
 }

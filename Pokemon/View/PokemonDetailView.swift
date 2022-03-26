@@ -10,6 +10,21 @@ import SwiftUI
 struct PokemonDetailView: View {
     @StateObject var viewModel: PokemonDetailViewModel
     
+    enum Constants {
+        static let sizeSpriteFront: CGFloat = 150
+        static let cornerRadiusBgBody: CGFloat = 30
+        static let paddingTopBody: CGFloat = 10
+        static let widthType: CGFloat = 130
+        static let heightType: CGFloat = 50
+        static let paddingPicker: CGFloat = 18
+        static let paddingNameId: CGFloat = 15
+        static let paddingGeneration: CGFloat = 8
+        static let radiusImage: CGFloat = 7
+        static let paddingDescription: CGFloat = 17
+        static let paddingEvolutionItem: CGFloat = 20
+        static let sizeEvolutionImage: CGFloat = 75
+    }
+    
     var body: some View {
         ZStack {
             Color(viewModel.pokemonColor)
@@ -22,18 +37,16 @@ struct PokemonDetailView: View {
                     backgroundBody
                     detailPokemon
                 }
-                .padding(.top, Constants.DetailView.paddingTopBody)
+                .padding(.top, Constants.paddingTopBody)
             }
         }
         .navigationTitle("Pokemon Info")
     }
     
     private var imagePokemon: some View {
-        AsyncImageCustom (
-            url: viewModel.urlSprite,
-            width: Constants.DetailView.sizeSpriteFront,
-            height: Constants.DetailView.sizeSpriteFront
-        )
+        AsyncImageCustom(url: viewModel.urlSprite)
+            .frame(width: Constants.sizeSpriteFront, height: Constants.sizeSpriteFront)
+            .shadow(color: .gray, radius: Constants.radiusImage, x: 0, y: 0)
             .padding()
     }
     
@@ -42,7 +55,7 @@ struct PokemonDetailView: View {
             ForEach(viewModel.pokemon.typesPokemon) { type in
                 Image("\(type)")
                     .resizable()
-                    .frame(width: Constants.DetailView.widthType, height: Constants.DetailView.heightType)
+                    .frame(width: Constants.widthType, height: Constants.heightType)
             }
         }
     }
@@ -53,12 +66,12 @@ struct PokemonDetailView: View {
             Text("Shiny Sprite").tag(1)
         }
         .pickerStyle(.segmented)
-        .padding(.horizontal, Constants.DetailView.paddingPicker)
+        .padding(.horizontal, Constants.paddingPicker)
     }
     
     private var backgroundBody: some View {
         Color.systemBackground
-            .cornerRadius(Constants.DetailView.cornerRadiusBgBody, corners: [.topLeft, .topRight])
+            .cornerRadius(Constants.cornerRadiusBgBody, corners: [.topLeft, .topRight])
     }
     
     private var detailPokemon: some View {
@@ -76,7 +89,7 @@ struct PokemonDetailView: View {
     private var nameAndId: some View {
         Text(viewModel.pokemon.idPokemon + " " + viewModel.pokemon.namePokemon)
             .font(.title)
-            .padding(.top, Constants.DetailView.paddingNameId)
+            .padding(.top, Constants.paddingNameId)
     }
     
     private var classification: some View {
@@ -88,7 +101,7 @@ struct PokemonDetailView: View {
         Text(viewModel.pokemonDescription)
             .multilineTextAlignment(.center)
             .font(.footnote)
-            .padding(17)
+            .padding(Constants.paddingDescription)
     }
     
     private var evolutions: some View {
@@ -98,13 +111,12 @@ struct PokemonDetailView: View {
                 
                 Text("Evolutions")
                     .font(.title3)
-                HStack {
+                VStack {
                     ForEach(viewModel.getEvolutions(pokemon: viewModel.pokemon) ?? [], id: \.namePokemon) { evolution in
                         evolutionItem(for: evolution)
                     }
                 }
             }
-            
         }
     }
     
@@ -113,6 +125,7 @@ struct PokemonDetailView: View {
             evolutionDetail(pokemon: viewModel.pokemon)
             
             Image(systemName: "arrow.right")
+                .padding(.horizontal, Constants.paddingEvolutionItem)
             
             NavigationLink {
                 PokemonDetailView(viewModel: PokemonDetailViewModel(
@@ -127,15 +140,17 @@ struct PokemonDetailView: View {
     
     private func evolutionDetail(pokemon: Pokemon) -> some View {
         VStack {
-            AsyncImageCustom(
-                url: viewModel.getSprite(pokemon: pokemon),
-                width: 50,
-                height: 50
-            )
+            Circle()
+                .fill()
+                .foregroundColor(.gray)
+                .overlay {
+                    AsyncImageCustom(url: viewModel.getSprite(pokemon: pokemon))
+                }
+                .frame(width: Constants.sizeEvolutionImage, height: Constants.sizeEvolutionImage)
             Text(pokemon.namePokemon)
                 .fontWeight(.semibold)
-
             Text(pokemon.idPokemon)
         }
     }
 }
+

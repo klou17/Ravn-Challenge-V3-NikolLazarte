@@ -10,6 +10,20 @@ import SwiftUI
 struct PokemonCell: View {
     let pokemon: Pokemon
     
+    enum Constants {
+        static let cornerRadius = 16.0
+        static let sizeSprite: CGFloat = 65
+        static let sizeType: CGFloat = 50
+        static let paddingLeadingSprite: CGFloat = -40
+        static let paddingTrailingSprite: CGFloat = 10
+        static let paddingTrailingType: CGFloat = -5
+        static let paddingTrailingCell: CGFloat = 24
+        static let paddingLeadingCell: CGFloat = 48
+        static let paddingInfoCell: CGFloat = 12
+        static let paddingLeadingName: CGFloat = 7
+        static let radiusImage: CGFloat = 7
+    }
+    
     var body: some View {
         ZStack {
             cellBackground
@@ -20,14 +34,14 @@ struct PokemonCell: View {
                 Spacer()
                 types
             }
-            .padding(.horizontal, Constants.ListCell.paddingInfoCell)
+            .padding(.horizontal, Constants.paddingInfoCell)
         }
-        .padding(.leading, Constants.ListCell.paddingLeadingCell)
-        .padding(.trailing, Constants.ListCell.paddingTrailingCell)
+        .padding(.leading, Constants.paddingLeadingCell)
+        .padding(.trailing, Constants.paddingTrailingCell)
     }
     
     private var cellBackground: some View {
-        RoundedRectangle(cornerRadius: Constants.ListCell.cornerRadius)
+        RoundedRectangle(cornerRadius: Constants.cornerRadius)
             .foregroundColor(.cellBackground)
     }
     
@@ -38,35 +52,24 @@ struct PokemonCell: View {
                 .fontWeight(.semibold)
             Text(pokemon.idPokemon)
         }
-        .padding(.leading, 7)
+        .padding(.leading, Constants.paddingLeadingName)
     }
     
     private var spriteFrontImage: some View {
-        AsyncImageCustom (
-            url: pokemon.spriteFrontDefaultImage,
-            width: Constants.ListCell.sizeSprite,
-            height: Constants.ListCell.sizeSprite
-        )
-            .padding(.leading, Constants.ListCell.paddingLeadingSprite)
-            .padding(.trailing, Constants.ListCell.paddingTrailingSprite)
+        AsyncImageCustom(url: pokemon.spriteFrontDefaultImage)
+            .frame(width: Constants.sizeSprite, height: Constants.sizeSprite)
+            .shadow(color: .gray, radius: Constants.radiusImage, x: 0, y: 0)
+            .padding(.leading, Constants.paddingLeadingSprite)
+            .padding(.trailing, Constants.paddingTrailingSprite)
     }
     
     private var types: some View {
         ForEach(pokemon.typesPokemon) { type in
             Image("\(type)Icon")
                 .resizable()
-                .frame(width: Constants.ListCell.sizeType, height: Constants.ListCell.sizeType)
-                .padding(.trailing, Constants.ListCell.paddingTrailingType)
+                .frame(width: Constants.sizeType, height: Constants.sizeType)
+                .padding(.trailing, Constants.paddingTrailingType)
         }
     }
 }
 
-//struct PokemonCell_Previews: PreviewProvider {
-//
-//    static let pokemon = Pokemon(id: 1, name: "bulbasaur", frontDefaultSprite: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"), frontShinySprite: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png"), generation: "Generation I", types: [TypePokemon(name: "Grass"), TypePokemon(name: "Poison")])
-//
-//    static var previews: some View {
-//        PokemonCell(pokemon: pokemon)
-//.previewInterfaceOrientation(.portrait)
-//    }
-//}

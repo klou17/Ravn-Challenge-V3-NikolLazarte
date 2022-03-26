@@ -15,16 +15,16 @@ class PokemonListViewModel: ObservableObject {
     @Published var errorLoadData = false
     @Published var error: NetworkError?
 
-    var searchResults: [Pokemon] {
+    var searchPokemons: [Pokemon] {
         if searchText.isEmpty {
             return pokemons
         } else {
-            return pokemons.filter { return $0.namePokemon.starts(with: searchText)}
+            return pokemons.filter { $0.namePokemon.starts(with: searchText)}
         }
     }
     
     var pokemonsGroupSection: [String: [Pokemon]] {
-        return Dictionary(grouping: searchResults, by: { $0.classificationPokemon })
+        return Dictionary(grouping: searchPokemons, by: { $0.classificationPokemon })
     }
     
     var classifications: [String] {
@@ -60,8 +60,7 @@ class PokemonListViewModel: ObservableObject {
     func getEvolutions(to pokemon: Pokemon) -> [Pokemon]? {
         guard let evolutions = pokemon.evolutions else { return nil }
         let evolutionNames = evolutions.map { $0?.name }
-        let filter = pokemons.filter {evolutionNames.contains( $0.name) }
-//        let filterSame = filter.filter { filter.contains( $0.name == pokemon.name )}
+        let filter = pokemons.filter { evolutionNames.contains( $0.name) }
         return filter
     }
 }

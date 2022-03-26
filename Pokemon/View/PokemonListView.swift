@@ -12,6 +12,14 @@ struct PokemonListView: View {
     @ObservedObject var monitor = InternetConexion()
     @State var noResults = true
     
+    enum Constants {
+        static let sizeNoDataImage: CGFloat = 50
+        static let paddingTopNoDataImage: CGFloat = 150
+        static let sizeFailConexionImage: CGFloat = 130
+        static let paddingTopFailConexionImage: CGFloat = 30
+        static let paddingTopFailLoadDataText: CGFloat = 10
+    }
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -50,7 +58,7 @@ struct PokemonListView: View {
         VStack(spacing: .zero){
             DividerCustom()
             ScrollView {
-                if viewModel.searchResults.isEmpty && !viewModel.searchText.isEmpty {
+                if viewModel.searchPokemons.isEmpty && !viewModel.searchText.isEmpty {
                     
                     noDataView
                     
@@ -88,11 +96,11 @@ struct PokemonListView: View {
             Image(systemName: "tray.fill")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 50, height: 50)
+                .frame(width: Constants.sizeNoDataImage, height: Constants.sizeNoDataImage)
             Text("No Data")
         }
         .foregroundColor(Color.gray)
-        .padding(.top, 150)
+        .padding(.top, Constants.paddingTopNoDataImage)
         .alertNoDataLoadCustom(isPresented: $noResults, typeError: NetworkError.noResultsFound)
     }
     
@@ -101,9 +109,9 @@ struct PokemonListView: View {
             Image(systemName: "icloud.slash.fill")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 130, height: 130)
+                .frame(width: Constants.sizeFailConexionImage, height: Constants.sizeFailConexionImage)
                 .foregroundColor(Color.gray)
-                .padding(.top, 30)
+                .padding(.top, Constants.paddingTopFailConexionImage)
             Spacer()
         }
         .alertFailConexionCustom(isPresented: $monitor.isFailConexion, typeError: .failConexion, tryAgain: {})
@@ -113,7 +121,7 @@ struct PokemonListView: View {
         VStack {
             Text("\(NetworkError.failLoadData.messageErrorBody)")
                 .foregroundColor(Color.red)
-                .padding(.top, 10)
+                .padding(.top, Constants.paddingTopFailLoadDataText)
             Spacer()
         }
         .alertNoDataLoadCustom(isPresented: $viewModel.errorLoadData, typeError: NetworkError.failLoadData)
