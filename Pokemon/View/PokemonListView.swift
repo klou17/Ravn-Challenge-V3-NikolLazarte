@@ -23,7 +23,7 @@ struct PokemonListView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                if monitor.networkError == .failConexion {
+                if viewModel.error == .failConexion {
                    failConexion
                 } else if viewModel.error == .failLoadData {
                     failLoadData
