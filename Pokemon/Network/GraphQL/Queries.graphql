@@ -1,5 +1,5 @@
 query GetAllPokemons {
-  pokemons(first: 250){
+  pokemons(first: 850){
     number
     name
     classification
