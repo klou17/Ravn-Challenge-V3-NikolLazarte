@@ -9,7 +9,11 @@ import Foundation
 import Apollo
 import Combine
 
-final class Network {
+protocol NetworkServiceType {
+    func fetch<T: GraphQLQuery>(_ query: T) -> AnyPublisher<T.Data, Error>
+}
+
+class Network: NetworkServiceType {
     static let shared = Network()
     private(set) lazy var client = ApolloClient(url: URL(string: Constants.Network.graphqlURL)!)
     

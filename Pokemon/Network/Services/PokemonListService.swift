@@ -15,9 +15,9 @@ protocol PokemonListServiceType {
 
 typealias Pokemon = GetAllPokemonsQuery.Data.Pokemon
 struct PokemonListService: PokemonListServiceType {
-    private let network: Network
+    private let network: NetworkServiceType
     
-    init(network: Network = Network.shared){
+    init(network: NetworkServiceType = Network.shared){
         self.network = network
     }
     

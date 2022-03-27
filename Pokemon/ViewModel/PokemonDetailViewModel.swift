@@ -20,9 +20,9 @@ class PokemonDetailViewModel: ObservableObject {
     @Published var error: NetworkError?
     
     private var cancellables = Set<AnyCancellable>()
-    private let service: PokemonDetailService
+    private let service: PokemonDetailServiceType
     
-    init(pokemon: Pokemon, service: PokemonDetailService = PokemonDetailService(), evolutions: [Pokemon]?) {
+    init(pokemon: Pokemon, service: PokemonDetailServiceType = PokemonDetailService(), evolutions: [Pokemon]?) {
         self.pokemon = pokemon
         self.service = service
         self.evolutions = evolutions

@@ -31,10 +31,10 @@ class PokemonListViewModel: ObservableObject {
         return pokemonsGroupSection.keys.sorted(by: <)
     }
     
-    private var service: PokemonListService
+    private var service: PokemonListServiceType
     private var cancellables = Set<AnyCancellable>()
     
-    init(service: PokemonListService = PokemonListService()){
+    init(service: PokemonListServiceType = PokemonListService()){
         self.service = service
     }
     

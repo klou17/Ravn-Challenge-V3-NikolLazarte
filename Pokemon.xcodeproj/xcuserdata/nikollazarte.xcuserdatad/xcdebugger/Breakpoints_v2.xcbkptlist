@@ -178,5 +178,149 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BC32CD7C-23BA-4C36-BCB9-E96250143259"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokemonTests/PokemonTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "testExample()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A838CA1A-2F32-47D8-ADB4-7C153EC565FB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokemonTests/PokemonListServiceMock.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "fetchPokemons()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A838CA1A-2F32-47D8-ADB4-7C153EC565FB - eecdffb4a7fdd743"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PokemonTests.PokemonListServiceMock.fetchPokemons() -&gt; Combine.AnyPublisher&lt;Swift.Array&lt;Pokemon.GetAllPokemonsQuery.Data.Pokemon&gt;, Swift.Error&gt;"
+                  moduleName = "PokemonTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nikollazarte/Documents/Developer/Pokemon/PokemonTests/PokemonListServiceMock.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "436">
+               </Location>
+               <Location
+                  uuid = "A838CA1A-2F32-47D8-ADB4-7C153EC565FB - eecdffb4a7fdd743"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PokemonTests.PokemonListServiceMock.fetchPokemons() -&gt; Combine.AnyPublisher&lt;Swift.Array&lt;Pokemon.GetAllPokemonsQuery.Data.Pokemon&gt;, Swift.Error&gt;"
+                  moduleName = "PokemonTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nikollazarte/Documents/Developer/Pokemon/PokemonTests/PokemonListServiceMock.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "444">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5681B6DA-42A8-492F-8882-2C11BAE38F18"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokemonTests/PokemonListServiceMock.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "fetchPokemons()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5681B6DA-42A8-492F-8882-2C11BAE38F18 - eecdffb4a7fdd77c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PokemonTests.PokemonListServiceMock.fetchPokemons() -&gt; Combine.AnyPublisher&lt;Swift.Array&lt;Pokemon.GetAllPokemonsQuery.Data.Pokemon&gt;, Swift.Error&gt;"
+                  moduleName = "PokemonTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nikollazarte/Documents/Developer/Pokemon/PokemonTests/PokemonListServiceMock.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "1001">
+               </Location>
+               <Location
+                  uuid = "5681B6DA-42A8-492F-8882-2C11BAE38F18 - eecdffb4a7fdd77c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PokemonTests.PokemonListServiceMock.fetchPokemons() -&gt; Combine.AnyPublisher&lt;Swift.Array&lt;Pokemon.GetAllPokemonsQuery.Data.Pokemon&gt;, Swift.Error&gt;"
+                  moduleName = "PokemonTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nikollazarte/Documents/Developer/Pokemon/PokemonTests/PokemonListServiceMock.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "1017">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "716C89CB-33A5-4168-AA94-30178744EB69"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokemonTests/PokemonListServiceMock.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "PokemonListServiceMock"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "70B6CD67-24C7-4AFA-A767-3F9DC34D0AC9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokemonTests/PokemonTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "PokemonTests"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
