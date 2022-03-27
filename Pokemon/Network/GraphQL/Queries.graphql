@@ -1,0 +1,13 @@
+query GetAllPokemons {
+  pokemons(first: 250){
+    number
+    name
+    classification
+    types
+    evolutions {
+      number
+      name
+    }
+    image
+  }
+}
